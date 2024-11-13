@@ -1,0 +1,31 @@
+Classifying query into topic.
+What is stopping me from querying in all topics? For the sake of this assignment.
+Can we use solr for inverted indexing?
+How will the grader know we are returning topk as 1 by using models.
+Interview is final, even if we are showing it early?
+
+topk
+solr
+external knowledge?
+
+0. setup repo.
+1. Extra scraping.
+2. Classifying query. (multiple topics is bonus)
+3. Research on chat bot, which one to use?
+4. Implement, integrate and test chatbot.
+5. Re-implement inverted indexing.
+6. Using a generative model to paraphrase the summary. (bonus)
+7. Top k implementation.
+8. Summarize the top 4 into 1 using RAG or any tool online. (bonus)
+9. Code should not crash, rigorously test.
+10. If nothing relevant found, handle it gracefully.
+11. Visualize the chat with chatbot. It can be any statistic, be creative. (errors, most common, how many queries etc) Minimum 2.
+12. Host a webapp interface to chat with bot. It can be hosted anywhere.
+13. Where to deploy what part of code.
+14. Is user making general chat or a query. (It can be handled by UI, or by us internally)
+15. Citing the source. (bonus)
+16. Demo video of 3 minutes. Where it is hosted?
+17. Report which gives details of the project. Contributions, screenshots, libraries, step, etc. 
+
+Nitpicking details
+- Which 
