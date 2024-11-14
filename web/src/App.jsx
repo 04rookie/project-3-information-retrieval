@@ -3,6 +3,7 @@ import "./App.css";
 import ChatWindow from "./ChatWindow/ChatWindow";
 import { Grid2 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Graphs from "./Graphs/Graphs";
 function App() {
   // const theme = createTheme({
   //   palette: {
@@ -64,7 +65,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Grid2 container spacing={0} style={{ height: "100vh", width: "100vw" }}>
         <Grid2 size={{ xs: 12, md: 6 }}>
-          <div style={{ height: "100%", width: "100%" }}></div>
+          <div style={{ height: "100%", width: "100%" }}>
+            <Graphs />
+          </div>
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, height: "100%", width: "100%" }}>
           <div

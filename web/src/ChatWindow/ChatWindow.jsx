@@ -1,8 +1,12 @@
-import { Button, Grid2 } from "@mui/material";
+import { Button } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Display from "./Display";
 import SendIcon from "@mui/icons-material/Send";
+import { useState } from "react";
+// import { moment } from "moment";
 function ChatWindow() {
+  const [messages, setMessages] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
   return (
     <div
       style={{
@@ -25,11 +29,15 @@ function ChatWindow() {
         }}
       >
         <div style={{ flexGrow: "1" }}>
-          <Display />
+          <Display message={messages} />
         </div>
         <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
-          <div style={{width: "100%", padding: '10px'}}>
-            <OutlinedInput fullWidth={true} />
+          <div style={{ width: "100%", padding: "10px" }}>
+            <OutlinedInput
+              fullWidth={true}
+              value={currentMessage}
+              onChange={(e) => setCurrentMessage(e.target.value)}
+            />
           </div>
           <div
             style={{
@@ -39,7 +47,21 @@ function ChatWindow() {
               padding: "10px",
             }}
           >
-            <Button variant="contained" endIcon={<SendIcon />}>
+            <Button
+              onClick={() => {
+                setMessages([
+                  ...messages,
+                  {
+                    message: currentMessage,
+                    sender: "user",
+                    // time: moment().format("HH:mm:ss"),
+                  },
+                ]);
+                setCurrentMessage("");
+              }}
+              variant="contained"
+              endIcon={<SendIcon />}
+            >
               Send
             </Button>
           </div>
