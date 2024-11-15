@@ -2,11 +2,12 @@ import { Button } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Display from "./Display";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DataContext } from "../Context";
 // import { moment } from "moment";
 function ChatWindow() {
-  const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
+  const {chat, setChat} = useContext(DataContext);
   return (
     <div
       style={{
@@ -29,7 +30,7 @@ function ChatWindow() {
         }}
       >
         <div style={{ flexGrow: "1" }}>
-          <Display message={messages} />
+          <Display message={chat} />
         </div>
         <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
           <div style={{ width: "100%", padding: "10px" }}>
@@ -49,8 +50,8 @@ function ChatWindow() {
           >
             <Button
               onClick={() => {
-                setMessages([
-                  ...messages,
+                setChat([
+                  ...chat,
                   {
                     message: currentMessage,
                     sender: "user",
