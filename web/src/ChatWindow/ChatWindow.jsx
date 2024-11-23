@@ -1,4 +1,11 @@
-import { Button } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  Grid2,
+  Typography,
+} from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Display from "./Display";
 import SendIcon from "@mui/icons-material/Send";
@@ -7,21 +14,221 @@ import { DataContext } from "../Context";
 // import { moment } from "moment";
 function ChatWindow() {
   const [currentMessage, setCurrentMessage] = useState("");
-  const {chat, setChat} = useContext(DataContext);
+  const { chat, setChat } = useContext(DataContext);
+  const { filter, setFilter } = useContext(DataContext);
   return (
     <div
       style={{
         height: "100%",
         width: "100%",
         djsplay: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        justifyContent: "space-between",
         alignItems: "center",
       }}
     >
       <div
         style={{
-          height: "80%",
-          margin: "10%",
+          height: "20%",
+          marginTop: "6%",
+          marginLeft: "10%",
+          marginRight: "10%",
+        }}
+      >
+        <Card>
+          <CardContent>
+            <Grid2 container spacing={0}>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.health}
+                    onChange={(e) =>
+                      setFilter({ ...filter, health: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Health</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 4, md: 4 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.environment}
+                    onChange={(e) =>
+                      setFilter({ ...filter, environment: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Environment</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.technology}
+                    onChange={(e) =>
+                      setFilter({ ...filter, technology: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Technology</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.economy}
+                    onChange={(e) =>
+                      setFilter({ ...filter, economy: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Economy</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 4, md: 4 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.entertainment}
+                    onChange={(e) =>
+                      setFilter({ ...filter, entertainment: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Entertainment</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.sports}
+                    onChange={(e) =>
+                      setFilter({ ...filter, sports: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Sports</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.politics}
+                    onChange={(e) =>
+                      setFilter({ ...filter, politics: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Politics</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.education}
+                    onChange={(e) =>
+                      setFilter({ ...filter, education: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Education</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.travel}
+                    onChange={(e) =>
+                      setFilter({ ...filter, travel: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Travel</Typography>
+                </div>
+              </Grid2>
+              <Grid2 item size={{ xs: 3, md: 3 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={filter.food}
+                    onChange={(e) =>
+                      setFilter({ ...filter, food: e.target.checked })
+                    }
+                  />
+                  <Typography variant="body1">Food</Typography>
+                </div>
+              </Grid2>
+            </Grid2>
+          </CardContent>
+        </Card>
+      </div>
+      <div
+        style={{
+          height: "60%",
+          marginTop: "5%",
+          marginRight: "10%",
+          marginLeft: "10%",
+          marginBottom: "10%",
           border: "1px solid",
           borderColor: "white",
           borderRadius: "5px",
