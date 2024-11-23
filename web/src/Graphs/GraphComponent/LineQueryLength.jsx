@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Label,
 } from "recharts";
 import { DataContext } from "../../Context";
 
@@ -23,19 +24,28 @@ function LineQueryLength() {
   }, [chat]);
   return (
     <div>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart
-          width={730}
-          height={250}
+          // width={730}
+          // height={250}
           data={data}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          // margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" label="Query Number" />
-          <YAxis label={"Query Length"} angle={90} style={{ textAnchor: "end" }} />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="y" stroke="#8884d8" label="Query Length" />
+          <XAxis dataKey="name">
+            <Label value="Query Number" offset={-9} position="bottom" />
+          </XAxis>
+          <YAxis>
+            <Label value="Query Length" offset={-9} position="left" angle={-90}/>
+          </YAxis>
+          {/* <Tooltip /> */}
+          {/* <Legend /> */}
+          <Line
+            type="monotone"
+            dataKey="y"
+            stroke="#8884d8"
+            label="Query Length"
+          />
           {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
         </LineChart>
       </ResponsiveContainer>
