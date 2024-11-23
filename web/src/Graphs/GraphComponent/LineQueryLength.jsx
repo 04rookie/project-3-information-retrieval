@@ -31,11 +31,11 @@ function LineQueryLength() {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" label="Query Number" />
           <YAxis label={"Query Length"} angle={90} style={{ textAnchor: "end" }} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="y" stroke="#8884d8" />
+          <Line type="monotone" dataKey="y" stroke="#8884d8" label="Query Length" />
           {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
         </LineChart>
       </ResponsiveContainer>
