@@ -70,14 +70,24 @@ function App() {
           style={{ height: "100vh", width: "100vw" }}
         >
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <div style={{ height: "100%", width: "100%" }}>
+            <div
+              style={{
+                height: "100vh",
+                width: "100%",
+                overflowY: "scroll",
+                overflowX: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Graphs />
             </div>
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6, height: "100%", width: "100%" }}>
             <div
               style={{
-                height: "100%",
+                height: "100vh",
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
