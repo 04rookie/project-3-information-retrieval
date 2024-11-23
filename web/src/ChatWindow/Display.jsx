@@ -4,9 +4,10 @@ import { CardContent, Typography } from "@mui/material";
 function Display({ message }) {
   return (
     <div
+    // 96 englewood
       style={{
         // border: "1px solid",
-        height: "70vh",
+        height: "50vh",
         overflow: "scroll",
         display: "flex",
         flexDirection: "column",
