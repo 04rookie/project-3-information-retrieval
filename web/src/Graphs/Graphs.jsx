@@ -17,7 +17,7 @@ function Graphs() {
           marginLeft: "10%",
           marginTop: "6%",
           marginBottom: "6%",
-        }}ß
+        }}
       >
         <Card>
           <CardContent>
