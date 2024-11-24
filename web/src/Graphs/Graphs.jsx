@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import LineQueryLength from "./GraphComponent/LineQueryLength";
+import ResponseTime from "./GraphComponent/ResponseTime";
 
 function Graphs() {
   return (
@@ -14,14 +15,14 @@ function Graphs() {
         spacing={2}
         style={{
           marginRight: "2%",
-          marginLeft: "10%",
+          marginLeft: "5%",
           marginTop: "6%",
           marginBottom: "6%",
         }}
       >
         <Card>
           <CardContent>
-            <LineQueryLength />
+            <ResponseTime />
           </CardContent>
         </Card>
         <Card>
