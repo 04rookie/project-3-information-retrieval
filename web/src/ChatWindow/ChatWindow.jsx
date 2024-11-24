@@ -11,11 +11,29 @@ import Display from "./Display";
 import SendIcon from "@mui/icons-material/Send";
 import { useContext, useState } from "react";
 import { DataContext } from "../Context";
+import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
+
 // import { moment } from "moment";
 function ChatWindow() {
   const [currentMessage, setCurrentMessage] = useState("");
   const { chat, setChat } = useContext(DataContext);
   const { filter, setFilter } = useContext(DataContext);
+  const { topicUpdated } = useContext(DataContext);
+  const { postMessage } = useContext(DataContext);
+  const gridData = [
+    { xs: 6, sm: 6, md: 2, name: "Health", hook: filter.Health },
+    { xs: 6, sm: 6, md: 3, name: "Environment", hook: filter.Environment },
+    { xs: 6, sm: 6, md: 3, name: "Technology", hook: filter.Technology },
+    { xs: 6, sm: 6, md: 2, name: "Food", hook: filter.Food },
+    { xs: 6, sm: 6, md: 2, name: "Economy", hook: filter.Economy },
+    { xs: 6, sm: 6, md: 3, name: "Entertainment", hook: filter.Entertainment },
+    { xs: 6, sm: 6, md: 2, name: "Sports", hook: filter.Sports },
+    { xs: 6, sm: 6, md: 2, name: "Politics", hook: filter.Politics },
+    { xs: 6, sm: 6, md: 3, name: "Education", hook: filter.Education },
+    { xs: 6, sm: 6, md: 2, name: "Travel", hook: filter.Travel },
+  ];
+
   return (
     <div
       style={{
@@ -25,199 +43,53 @@ function ChatWindow() {
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
+        // overflowY: "auto",
       }}
     >
       <div
         style={{
           height: "20%",
           marginTop: "6%",
-          marginLeft: "10%",
-          marginRight: "10%",
+          marginLeft: "5%",
+          marginRight: "5%",
+          // overflowY: "clip",
+          maxHeight: "20%",
+          overflowY: "auto",
         }}
       >
         <Card>
           <CardContent>
             <Grid2 container spacing={0}>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.health}
-                    onChange={(e) =>
-                      setFilter({ ...filter, health: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Health</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 4, md: 4 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.environment}
-                    onChange={(e) =>
-                      setFilter({ ...filter, environment: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Environment</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.technology}
-                    onChange={(e) =>
-                      setFilter({ ...filter, technology: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Technology</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.economy}
-                    onChange={(e) =>
-                      setFilter({ ...filter, economy: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Economy</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 4, md: 4 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.entertainment}
-                    onChange={(e) =>
-                      setFilter({ ...filter, entertainment: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Entertainment</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.sports}
-                    onChange={(e) =>
-                      setFilter({ ...filter, sports: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Sports</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.politics}
-                    onChange={(e) =>
-                      setFilter({ ...filter, politics: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Politics</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.education}
-                    onChange={(e) =>
-                      setFilter({ ...filter, education: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Education</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.travel}
-                    onChange={(e) =>
-                      setFilter({ ...filter, travel: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Travel</Typography>
-                </div>
-              </Grid2>
-              <Grid2 item size={{ xs: 3, md: 3 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={filter.food}
-                    onChange={(e) =>
-                      setFilter({ ...filter, food: e.target.checked })
-                    }
-                  />
-                  <Typography variant="body1">Food</Typography>
-                </div>
-              </Grid2>
+              {gridData.map((data) => {
+                return (
+                  <Grid2
+                    size={{ xs: data.xs, sm: data.sm, md: data.md }}
+                    key={uuidv4()}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Checkbox
+                        size="small"
+                        checked={data.hook}
+                        onChange={(e) => {
+                          topicUpdated.current = true;
+                          setFilter({
+                            ...filter,
+                            [data.name]: e.target.checked,
+                          });
+                        }}
+                      />
+                      <Typography variant="body2">{data.name}</Typography>
+                    </div>
+                  </Grid2>
+                );
+              })}
             </Grid2>
           </CardContent>
         </Card>
@@ -257,12 +129,13 @@ function ChatWindow() {
           >
             <Button
               onClick={() => {
-                setChat([
-                  ...chat,
+                postMessage({ message: currentMessage });
+                setChat((prev) =>[
+                  ...prev,
                   {
                     message: currentMessage,
                     sender: "user",
-                    // time: moment().format("HH:mm:ss"),
+                    time: DateTime.now(),
                   },
                 ]);
                 setCurrentMessage("");
