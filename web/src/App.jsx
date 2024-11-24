@@ -4,6 +4,7 @@ import { Grid2 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Graphs from "./Graphs/Graphs";
 import { DataProvider } from "./Context";
+
 function App() {
   // const theme = createTheme({
   //   palette: {
@@ -73,6 +74,7 @@ function App() {
             <div
               style={{
                 height: "100vh",
+                minHeight: "-webkit-fill-available",
                 width: "100%",
                 overflowY: "scroll",
                 overflowX: "hidden",
@@ -87,7 +89,9 @@ function App() {
           <Grid2 size={{ xs: 12, md: 6, height: "100%", width: "100%" }}>
             <div
               style={{
-                height: "100vh",
+                // height: "100vh",
+                height: "100%",
+                // overflowY: "clip",
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
