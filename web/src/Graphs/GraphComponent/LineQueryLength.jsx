@@ -18,7 +18,7 @@ function LineQueryLength() {
   useEffect(() => {
     let temp = [];
     chat.forEach((msg, index) => {
-      temp.push({ y: msg.message.split(" ").length, name: index });
+      temp.push({ y: msg.message.split(" ").length, name: index + 1 });
     });
     setData(temp);
   }, [chat]);

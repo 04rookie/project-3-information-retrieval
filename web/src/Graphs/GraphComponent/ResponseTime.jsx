@@ -28,9 +28,9 @@ function ResponseTime() {
       }
       setData(temp);
     }
-    console.log(temp);
-    console.log(chat.length);
-    console.log(chat);
+    // console.log(temp);
+    // console.log(chat.length);
+    // console.log(chat);
     // chat.forEach((msg, index) => {
     //   temp.push({ y: msg.message.split(" ").length, name: index });
     // });
