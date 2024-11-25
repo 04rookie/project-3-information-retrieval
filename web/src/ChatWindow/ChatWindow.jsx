@@ -21,6 +21,7 @@ function ChatWindow() {
   const { filter, setFilter } = useContext(DataContext);
   const { topicUpdated } = useContext(DataContext);
   const { postMessage } = useContext(DataContext);
+  const { showLoading } = useContext(DataContext);
   const gridData = [
     { xs: 6, sm: 6, md: 2, name: "Health", hook: filter.Health },
     { xs: 6, sm: 6, md: 3, name: "Environment", hook: filter.Environment },
@@ -128,9 +129,10 @@ function ChatWindow() {
             }}
           >
             <Button
+              disabled={showLoading}
               onClick={() => {
                 postMessage({ message: currentMessage });
-                setChat((prev) =>[
+                setChat((prev) => [
                   ...prev,
                   {
                     message: currentMessage,
@@ -143,7 +145,7 @@ function ChatWindow() {
               variant="contained"
               endIcon={<SendIcon />}
             >
-              Send
+              {showLoading ? "Loading..." : "Send"}
             </Button>
           </div>
         </div>
