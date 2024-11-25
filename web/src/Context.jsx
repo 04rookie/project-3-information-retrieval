@@ -6,7 +6,8 @@ import axios from "axios";
 import { DateTime } from "luxon";
 const DataProvider = ({ children }) => {
   const instance = axios.create({
-    baseURL: "http://192.168.1.4:9999",
+    // baseURL: "http://192.168.1.4:9999",
+    baseURL: "http://34.67.220.5:9999",
   });
   const [chatID, setChatID] = useState(null);
   const [showLoading, setShowLoading] = useState(false);
@@ -23,68 +24,117 @@ const DataProvider = ({ children }) => {
     Travel: false,
     Food: false,
   });
+  const [topicFrequency, setTopicFrequency] = useState({
+    Health: 0,
+    Environment: 0,
+    Technology: 0,
+    Economy: 0,
+    Entertainment: 0,
+    Sports: 0,
+    Politics: 0,
+    Education: 0,
+    Travel: 0,
+    Food: 0,
+  });
   const topicUpdated = useRef(false);
   const stop = useRef(false);
-  useEffect(() => {}, []);
-  if (stop.current == false) {
-    instance
-      .post(
-        "/init",
-        // "http://34.67.220.5:9999/init",
+  useEffect(() => {
+    if (stop.current == false) {
+      setShowLoading(true);
+      instance
+        .post(
+          "/init",
+          // "http://34.67.220.5:9999/init",
 
+          {
+            topics: [],
+          },
+          { timeout: 20000 }
+        )
+        .then((res) => {
+          // console.log(res?.data);
+          setChatID(res?.data?.chatID);
+          setChat(() => [
+            {
+              message: res?.data?.content,
+              sender: "bot",
+              time: DateTime.now(),
+            },
+          ]);
+          stop.current = true;
+          setShowLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("Error, failed to call init");
+          stop.current = true;
+          // code to handle timeout
+          setChat((prev) => [
+            ...prev,
+            {
+              message:
+                "Failed to connect to the server. Please try again later. :( ",
+              sender: "bot",
+              time: DateTime.now(),
+            },
+          ]);
+          setShowLoading(false);
+        });
+    }
+  }, []);
+
+  async function postMessage(data) {
+    const selectedTopics = Object.keys(filter).filter((key) => filter[key]);
+    Object.keys(topicFrequency).forEach((key) => {
+      if (filter[key]) {
+        setTopicFrequency((prev) => {
+          return {
+            ...prev,
+            [key]: topicFrequency[key] + 1,
+          };
+        });
+        // topicFrequency[key] += 1;
+      }
+    });
+    try {
+      setShowLoading(true);
+      const res = await instance.post(
+        "/chat",
         {
-          topics: [],
+          chatID: chatID,
+          prompt: data.message,
+          updTopic: topicUpdated.current,
+          topics: selectedTopics,
         },
         { timeout: 10000 }
-      )
-      .then((res) => {
-        console.log(res?.data);
-        setChatID(res?.data?.chatID);
-        setChat(() => [
+      );
+      topicUpdated.current = false;
+      setChat((prev) => {
+        return [
+          ...prev,
           {
             message: res?.data?.content,
             sender: "bot",
             time: DateTime.now(),
           },
-        ]);
-        stop.current = true;
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("Error, failed to call init");
-        stop.current = true;
-        // code to handle timeout
-        setChat((prev) => [
-          ...prev,
-          {
-            message:
-              "Failed to connect to the server. Please try again later. :( ",
-            sender: "bot",
-            time: DateTime.now(),
-          },
-        ]);
+        ];
       });
-  }
-
-  async function postMessage(data) {
-    const selectedTopics = Object.keys(filter).filter((key) => filter[key]);
-    const res = await instance.post("/chat", {
-      chatID: chatID,
-      prompt: data.message,
-      updTopic: topicUpdated.current,
-      topics: selectedTopics,
-    });
-    topicUpdated.current = false;
-    setChat((prev) => {
-      return [
+      setShowLoading(false);
+    } catch (err) {
+      console.log(err);
+      setChat((prev) => [
         ...prev,
         {
-          message: res?.data?.content,
+          message:
+            "Failed to connect to the server. Please try again later. :( ",
           sender: "bot",
           time: DateTime.now(),
         },
-      ];
-    });
+      ]);
+      stop.current = true;
+      setShowLoading(false);
+    }
+
     return;
   }
 
@@ -100,6 +150,7 @@ const DataProvider = ({ children }) => {
         chatID,
         postMessage,
         topicUpdated,
+        topicFrequency,
       }}
     >
       {children}
