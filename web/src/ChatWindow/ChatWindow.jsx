@@ -115,6 +115,20 @@ function ChatWindow() {
         <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
           <div style={{ width: "100%", padding: "10px" }}>
             <OutlinedInput
+              onKeyDown={(e) => {
+                if (showLoading == false && e.key === "Enter") {
+                  postMessage({ message: currentMessage });
+                  setChat((prev) => [
+                    ...prev,
+                    {
+                      message: currentMessage,
+                      sender: "user",
+                      time: DateTime.now(),
+                    },
+                  ]);
+                  setCurrentMessage("");
+                }
+              }}
               fullWidth={true}
               value={currentMessage}
               onChange={(e) => setCurrentMessage(e.target.value)}
