@@ -6,8 +6,8 @@ import axios from "axios";
 import { DateTime } from "luxon";
 const DataProvider = ({ children }) => {
   const instance = axios.create({
-    // baseURL: "http://192.168.1.4:9999",
-    baseURL: "http://34.67.220.5:9999",
+    // baseURL: "http://127.0.0.1:9999",
+    baseURL: "http://35.184.42.87:9999",
   });
   const [chatID, setChatID] = useState(null);
   const [showLoading, setShowLoading] = useState(false);
@@ -131,7 +131,7 @@ const DataProvider = ({ children }) => {
           time: DateTime.now(),
         },
       ]);
-      stop.current = true;
+      stop.current = false;
       setShowLoading(false);
     }
 
