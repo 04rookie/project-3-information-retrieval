@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 const DataProvider = ({ children }) => {
   const instance = axios.create({
     // baseURL: "http://127.0.0.1:9999",
-    baseURL: "http://35.184.42.87:9999",
+    baseURL: "http://35.209.223.129:9999",
   });
   const [chatID, setChatID] = useState(null);
   const [showLoading, setShowLoading] = useState(false);
