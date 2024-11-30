@@ -29,6 +29,7 @@ function App() {
       },
       background: {
         default: "#2F2F2F", // dark gray
+        black: "#000000", // dark gray
         paper: "#333333", // darker gray
       },
       text: {
@@ -68,7 +69,11 @@ function App() {
         <Grid2
           container
           spacing={0}
-          style={{ height: "100vh", width: "100vw" }}
+          style={{
+            height: "100vh",
+            width: "100vw",
+            backgroundColor: theme.palette.background.black,
+          }}
         >
           <Grid2 size={{ xs: 12, md: 6 }}>
             <div
