@@ -2,21 +2,26 @@ import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import { CardContent, Typography } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect, useRef } from "react";
 // import { DateTime } from "luxon";
 function Display({ message }) {
+  const listRef = useRef(null);
+  useEffect(() => {
+    listRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [message]);
   return (
     // <div style={{ height: "50vh", overflowY: "scroll" }}>
     <div
-      // 96 englewood
+      // ref={listRef}
       style={{
         // border: "1px solid",
-        height: "48vh",
+        height: "100%",
         // position: "relative",
         // height: "100%",
         overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
+        justifyContent: "center",
         // minHeight: "-webkit-fill-available",
       }}
     >
@@ -44,7 +49,9 @@ function Display({ message }) {
                     </Typography>
                   </div>
                   <div>
-                    <Typography variant="caption">{msg.time.toFormat("HH:mm:ss")}</Typography>
+                    <Typography variant="caption">
+                      {msg.time.toFormat("HH:mm:ss")}
+                    </Typography>
                   </div>
                 </div>
                 <div>
@@ -55,6 +62,7 @@ function Display({ message }) {
           </div>
         );
       })}
+      <div ref={listRef} />
     </div>
     // </div>
   );

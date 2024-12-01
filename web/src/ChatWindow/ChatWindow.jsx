@@ -49,7 +49,7 @@ function ChatWindow() {
     >
       <div
         style={{
-          height: "20%",
+          height: "20vh",
           marginTop: "6%",
           marginLeft: "5%",
           marginRight: "5%",
@@ -97,7 +97,7 @@ function ChatWindow() {
       </div>
       <div
         style={{
-          height: "60%",
+          height: "59vh",
           marginTop: "5%",
           marginRight: "10%",
           marginLeft: "10%",
@@ -109,9 +109,9 @@ function ChatWindow() {
           flexDirection: "column",
         }}
       >
-        <div style={{ flexGrow: "1" }}>
+        {/* <div style={{ flexGrow: "1" }}> */}
           <Display message={chat} />
-        </div>
+        {/* </div> */}
         <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
           <div style={{ width: "100%", padding: "10px" }}>
             <OutlinedInput
