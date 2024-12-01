@@ -4,7 +4,7 @@ from summarizer import summarize
 
 class WikiBot:
     def __init__(self, topics):
-        SOLR_ENDPOINT = 'http://35.209.120.109:8983/solr/IRF24P1'
+        SOLR_ENDPOINT = 'http://35.209.120.109:8983/solr/testing'
         self.solr = pysolr.Solr(SOLR_ENDPOINT)
         self.topics = topics
 
