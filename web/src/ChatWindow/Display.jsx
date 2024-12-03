@@ -31,7 +31,7 @@ function Display({ message }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(chat);
+  // console.log(chat);
   return (
     // <div style={{ height: "50vh", overflowY: "scroll" }}>
     <div
