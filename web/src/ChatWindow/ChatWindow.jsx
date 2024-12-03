@@ -110,7 +110,7 @@ function ChatWindow() {
         }}
       >
         {/* <div style={{ flexGrow: "1" }}> */}
-          <Display message={chat} />
+        <Display message={chat} />
         {/* </div> */}
         <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
           <div style={{ width: "100%", padding: "10px" }}>
@@ -124,6 +124,8 @@ function ChatWindow() {
                       message: currentMessage,
                       sender: "user",
                       time: DateTime.now(),
+                      urls: [],
+                      topics: [],
                     },
                   ]);
                   setCurrentMessage("");
@@ -131,7 +133,12 @@ function ChatWindow() {
               }}
               fullWidth={true}
               value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
+              onChange={(e) => {
+                // if (!e.target.value.match(/^[0-9a-zA-Z?,. ]+$/) && e.target.value !== "") {
+                //   return;
+                // }
+                setCurrentMessage(e.target.value);
+              }}
             />
           </div>
           <div
@@ -152,6 +159,8 @@ function ChatWindow() {
                     message: currentMessage,
                     sender: "user",
                     time: DateTime.now(),
+                    urls: [],
+                    topics: [],
                   },
                 ]);
                 setCurrentMessage("");
