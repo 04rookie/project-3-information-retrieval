@@ -40,6 +40,7 @@ const DataProvider = ({ children }) => {
     Education: 0,
     Travel: 0,
     Food: 0,
+    General: 0,
   });
   const topicUpdated = useRef(false);
   const stop = useRef(false);
@@ -63,6 +64,8 @@ const DataProvider = ({ children }) => {
               message: res?.data?.content,
               sender: "bot",
               time: DateTime.now(),
+              urls: [],
+              topics: [],
             },
           ]);
           stop.current = true;
@@ -80,33 +83,23 @@ const DataProvider = ({ children }) => {
                 "Failed to connect to the server. Please try again later. :( ",
               sender: "bot",
               time: DateTime.now(),
+              urls: [],
+              topics: [],
             },
           ]);
           setShowLoading(false);
         });
     }
   }, []);
-
   async function postMessage(data) {
     const selectedTopics = Object.keys(filter).filter((key) => filter[key]);
-    Object.keys(topicFrequency).forEach((key) => {
-      if (filter[key]) {
-        setTopicFrequency((prev) => {
-          return {
-            ...prev,
-            [key]: topicFrequency[key] + 1,
-          };
-        });
-        // topicFrequency[key] += 1;
-      }
-    });
     try {
       setShowLoading(true);
       const res = await instance.post(
         "/chat",
         {
           chatID: chatID,
-          prompt: data.message,
+          prompt: data.message?.replace(/[^a-zA-Z0-9\s]/g, ''),
           updTopic: topicUpdated.current,
           topics: selectedTopics,
         },
@@ -117,11 +110,30 @@ const DataProvider = ({ children }) => {
         return [
           ...prev,
           {
-            message: res?.data?.content,
+            message: res?.data?.content?.message,
             sender: "bot",
             time: DateTime.now(),
+            urls: res?.data?.content?.meta?.urls ?? [],
+            topics: res?.data?.content?.meta?.topics ?? [],
           },
         ];
+      });
+      if(res?.data?.content?.message == "Bye Bye!! Please refresh the page to start chatting again"){
+        stop.current = true;
+        setShowLoading(true);
+        return;
+      }
+      setTopicFrequency((prev) => {
+        let temp = {
+          ...prev,
+        };
+        res?.data?.content?.meta?.topics.forEach((top) => {
+          temp[top] =
+            temp[top] + 1;
+        });
+        return {
+          ...temp,
+        };
       });
       setShowLoading(false);
     } catch (err) {
@@ -133,15 +145,16 @@ const DataProvider = ({ children }) => {
             "Failed to connect to the server. Please try again later. :( ",
           sender: "bot",
           time: DateTime.now(),
+          urls: [],
+          topics: [],
         },
       ]);
       stop.current = false;
       setShowLoading(false);
     }
-
     return;
   }
-
+  // console.log(topicFrequency);
   return (
     <DataContext.Provider
       value={{
