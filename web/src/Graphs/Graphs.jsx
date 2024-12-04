@@ -45,11 +45,6 @@ function Graphs() {
             <LineQueryLength />
           </CardContent>
         </Card>
-        <Card>
-          <CardContent>
-            <LineQueryLength />
-          </CardContent>
-        </Card>
       </Stack>
     </div>
   );
