@@ -152,6 +152,7 @@ function ChatWindow() {
             <Button
               disabled={showLoading}
               onClick={() => {
+                if (currentMessage.trim() == "") return;
                 postMessage({ message: currentMessage });
                 setChat((prev) => [
                   ...prev,
