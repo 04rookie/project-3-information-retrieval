@@ -72,7 +72,21 @@ const DataProvider = ({ children }) => {
           setShowLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          if(err?.response?.data?.content == "Queue Overflow") {
+            stop.current = true;
+            setChat((prev) => [
+              ...prev,
+              {
+                message:
+                  "Server is under heavy load. Please try again later. (GCP is expensive!) :( ",
+                sender: "bot",
+                time: DateTime.now(),
+                urls: [],
+                topics: [],
+              },
+            ]);
+            return;
+          }
           console.log("Error, failed to call init");
           stop.current = true;
           // code to handle timeout
@@ -99,7 +113,7 @@ const DataProvider = ({ children }) => {
         "/chat",
         {
           chatID: chatID,
-          prompt: data.message?.replace(/[^a-zA-Z0-9\s]/g, ''),
+          prompt: data.message?.replace(/[^a-zA-Z0-9\s]/g, ""),
           updTopic: topicUpdated.current,
           topics: selectedTopics,
         },
@@ -118,7 +132,10 @@ const DataProvider = ({ children }) => {
           },
         ];
       });
-      if(res?.data?.content?.message == "Bye Bye!! Please refresh the page to start chatting again"){
+      if (
+        res?.data?.content?.message ==
+        "Bye Bye!! Please refresh the page to start chatting again"
+      ) {
         stop.current = true;
         setShowLoading(true);
         return;
@@ -128,8 +145,7 @@ const DataProvider = ({ children }) => {
           ...prev,
         };
         res?.data?.content?.meta?.topics.forEach((top) => {
-          temp[top] =
-            temp[top] + 1;
+          temp[top] = temp[top] + 1;
         });
         return {
           ...temp,
@@ -155,6 +171,24 @@ const DataProvider = ({ children }) => {
     return;
   }
   // console.log(topicFrequency);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // Prevent default action and show confirmation dialog
+      event.preventDefault();
+      event.returnValue = "Are you sure you want to close?"; // This is required for some browsers
+      instance.post("/end", { chatID: chatID });
+    };
+
+    // Add event listener
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <DataContext.Provider
       value={{
