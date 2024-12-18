@@ -18,4 +18,5 @@ class ChitChat:
         if(prompt.lower()) in self.exitWords:
             return self.exitMsg, None
         response = self.generate(prompt)
+        response = { "message": response, "meta": {"urls": [], "topics" : ["General"] } }
         return response, self
